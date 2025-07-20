@@ -1,0 +1,22 @@
+[
+  { "id": 1, "name": "kashishkapoor", "elo": 1200, "image": "/photos/kashishkapoor.jpg" },
+  { "id": 2, "name": "joeychua8_official", "elo": 1200, "image": "/photos/joeychua8_official.jpg" },
+  { "id": 3, "name": "habiba8310", "elo": 1200, "image": "/photos/habiba8310.jpg" },
+  { "id": 4, "name": "emiwong_", "elo": 1200, "image": "/photos/emiwong_.jpg" },
+  { "id": 5, "name": "danyancatsq", "elo": 1200, "image": "/photos/danyancatsq.jpg" },
+  { "id": 6, "name": "angelawhite", "elo": 1200, "image": "/photos/angelawhite.jpg" },
+  { "id": 7, "name": "marialejara", "elo": 1200, "image": "/photos/marialejara.jpg" },
+  { "id": 8, "name": "yuliett.torres", "elo": 1200, "image": "/photos/yuliett.torres.jpg" },
+  { "id": 9, "name": "yimengling", "elo": 1200, "image": "/photos/yimengling.jpg" },
+  { "id": 10, "name": "yanarusaya", "elo": 1200, "image": "/photos/yanarusaya.jpg" },
+  { "id": 11, "name": "vismaramartina", "elo": 1200, "image": "/photos/vismaramartina.jpg" },
+  { "id": 12, "name": "veradijkmans", "elo": 1200, "image": "/photos/veradijkmans.jpg" },
+  { "id": 13, "name": "sophiedee", "elo": 1200, "image": "/photos/sophiedee.jpg" },
+  { "id": 14, "name": "sohilaeladawii", "elo": 1200, "image": "/photos/sohilaeladawii.jpg" },
+  { "id": 15, "name": "riae_", "elo": 1200, "image": "/photos/riae_.jpg" },
+  { "id": 16, "name": "rhearipley_wwe", "elo": 1200, "image": "/photos/rhearipley_wwe.jpg" },
+  { "id": 17, "name": "realnicoleaniston", "elo": 1200, "image": "/photos/realnicoleaniston.jpg" },
+  { "id": 18, "name": "pandorakaaki", "elo": 1200, "image": "/photos/pandorakaaki.jpg", "instagram": "https://instagram.com/pandorakaaki" },
+  { "id": 19, "name": "ms_puiyi", "elo": 1200, "image": "/photos/ms_puiyi.jpg" },
+  { "id": 20, "name": "marianapalacio333", "elo": 1200, "image": "/photos/marianapalacio333.jpg" }
+]

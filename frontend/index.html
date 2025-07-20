@@ -1,0 +1,157 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EloGirls - Who's Hotter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      font-family: 'Fira Code', monospace;
+    }
+    .glow {
+      box-shadow: 0 0 12px #86efac88;
+    }
+  </style>
+</head>
+<body class="bg-[#15161b] text-white min-h-screen flex">
+
+  <input type="text" name="trap" id="trap" class="hidden" autocomplete="off" />
+
+  <!-- Desktop Sidebar -->
+  <div class="w-48 bg-[#0c0c0e] border-r border-[#1a1a1a] p-4 flex-col items-start space-y-4 fixed h-full hidden sm:flex">
+    <div class="text-[#86efac] text-lg font-bold">EloGirls</div>
+    <button class="hover:text-[#86efac]" onclick="location.reload()">🔥 Arena</button>
+    <button class="hover:text-[#86efac]" id="leaderboardBtn">📊 Leaderboard</button>
+    <button class="hover:text-[#86efac]" id="accountBtn">👤 Profile</button>
+    <button class="hover:text-[#86efac]" id="rewardsBtn">🎁 Rewards</button>
+  </div>
+
+  <!-- Mobile Topbar -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 bg-[#0c0c0e] border-b border-[#1a1a1a] flex items-center justify-between p-4 z-50">
+    <div class="text-[#86efac] text-lg font-bold">EloGirls</div>
+    <button id="mobileMenuBtn" class="text-white text-2xl">☰</button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="sm:hidden fixed top-[52px] left-0 right-0 bg-[#0c0c0e] border-b border-[#1a1a1a] flex flex-col p-4 space-y-2 hidden z-40">
+    <button class="text-left hover:text-[#86efac]" onclick="location.reload()">🔥 Arena</button>
+    <button class="text-left hover:text-[#86efac]" id="mobileLeaderboardBtn">📊 Leaderboard</button>
+    <button class="text-left hover:text-[#86efac]" id="mobileAccountBtn">👤 Profile</button>
+    <button class="text-left hover:text-[#86efac]" id="mobileRewardsBtn">🎁 Rewards</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 sm:ml-48 p-6 mt-16 sm:mt-0 w-full">
+    <div id="topFeed" class="text-center bg-[#141c2b] text-2xl text-[#ffffff] px-4 py-2 rounded mb-6 border border-[#1a1a1a]">
+      Welcome to EloGirls! Vote and earn XP 🔥
+    </div>
+
+    <div id="cooldownBanner" class="hidden bg-red-600 text-white text-sm px-4 py-2 mb-4 rounded glow">
+      You're clicking too fast!
+    </div>
+
+    <div class="text-center text-[#86efac] mb-2">
+      XP: <span id="xpValue">0</span>
+    </div>
+
+    <div id="arena" class="flex flex-col sm:flex-row justify-center gap-10 items-center mt-12">
+      <button class="flex flex-col items-center space-y-1" onclick="handleVote(leftCreator, rightCreator, 'left')">
+        <div id="creatorAName" class="text-[#86efac] text-base font-bold">[🔥 Creator A 🔥]</div>
+        <div class="rounded-lg overflow-hidden glow w-64 h-64">
+          <img id="imgA" src="" alt="A" class="w-full h-full object-cover" />
+        </div>
+        <div id="rankA" class="text-sm text-gray-300 mt-1">Rank: #-- | Elo: ----</div>
+      </button>
+
+
+      <div class="text-xl">VS</div>
+
+      <button class="flex flex-col items-center space-y-1" onclick="handleVote(rightCreator, leftCreator, 'right')">
+        <div id="creatorBName" class="text-[#86efac] text-base font-bold">[🔥 Creator B 🔥]</div>
+        <div class="rounded-lg overflow-hidden glow w-64 h-64">
+          <img id="imgB" src="" alt="B" class="w-full h-full object-cover" />
+        </div>
+        <div id="rankB" class="text-sm text-gray-300 mt-1">Rank: #-- | Elo: ----</div>
+      </button>
+
+    </div>
+
+    <div class="hidden sm:flex justify-center gap-6 mt-12">
+      <button id="voteA" class="px-6 py-2 bg-red-500 hover:bg-red-700 rounded text-white font-bold glow">Vote A</button>
+      <button id="voteB" class="px-6 py-2 bg-green-500 hover:bg-green-700 rounded text-white font-bold glow">Vote B</button>
+    </div>
+
+      <!-- Mobile-only footer spacing and message -->
+    <div class="sm:hidden mt-12 mb-10
+     px-4 text-center text-gray-400 text-sm">
+      More girls are being added soon.  
+      <br>Stay tuned and keep ranking 🔥
+    </div>
+  </div>
+
+
+
+
+  <!-- Profile Modal -->
+  <div id="modalOverlay" class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center p-6 z-50">
+    <div id="profileBox" class="bg-[#1a1a1a] border border-[#86efac] text-white p-6 rounded-lg w-80 shadow-lg relative">
+      <button id="closeProfile" class="absolute top-1 right-2 text-white text-lg">✕</button>
+      <h2 class="text-xl font-bold mb-4 text-[#86efac]">👤 Your Profile</h2>
+      <p class="mb-2"><strong>User ID:</strong> <span id="profileUserId">guest</span></p>
+      <p class="mb-2"><strong>XP:</strong> <span id="profileXp">0</span></p>
+      <p class="mb-2"><strong>Total Votes:</strong> <span id="profileVotes">0</span></p>
+      <p><strong>Wallet:</strong> <span id="profileWallet">Not Connected</span></p>
+    </div>
+  </div>
+
+  <!-- Leaderboard Modal -->
+  <div id="leaderboardModal" class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center p-6 z-50">
+    <div class="bg-[#1a1a1a] border border-[#86efac] text-white p-6 rounded-lg w-96 shadow-lg relative">
+      <button onclick="document.getElementById('leaderboardModal').classList.add('hidden')" class="absolute top-1 right-2 text-white text-lg">✕</button>
+      <h2 class="text-xl font-bold mb-4 text-[#86efac]">📊 Leaderboard</h2>
+      <ul id="leaderboardList" class="space-y-1 text-sm"></ul>
+    </div>
+  </div>
+
+  <!-- Rewards Modal -->
+  <div id="rewardsModal" class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center p-6 z-50">
+    <div class="bg-[#1a1a1a] border border-[#86efac] text-white p-6 rounded-lg w-96 shadow-lg relative">
+      <button onclick="document.getElementById('rewardsModal').classList.add('hidden')" class="absolute top-1 right-2 text-white text-lg">✕</button>
+      <h2 class="text-xl font-bold mb-4 text-[#86efac]">🎁 Rewards</h2>
+      <ul class="text-sm space-y-2">
+        <li>🏅 Bronze Voter — 100 XP</li>
+        <li>🥈 Silver Voter — 300 XP</li>
+        <li>🥇 Gold Voter — 500 XP</li>
+        <li>🔥 Elite Voter — 1000 XP</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <script>
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    document.getElementById('mobileAccountBtn').addEventListener('click', () => {
+      document.getElementById('accountBtn').click();
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+
+    document.getElementById('mobileLeaderboardBtn').addEventListener('click', () => {
+      document.getElementById('leaderboardBtn').click();
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+
+    document.getElementById('mobileRewardsBtn').addEventListener('click', () => {
+      document.getElementById('rewardsBtn').click();
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+  </script>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>
